@@ -1,0 +1,1312 @@
+config firewall policy
+    edit 78
+        set name "BLOCK-ISDB-OUT"
+        set uuid f4638bb4-2547-51ef-1d66-cafd7b7b34ac
+        set srcintf "any"
+        set dstintf "port1"
+        set srcaddr "all"
+        set internet-service enable
+        set internet-service-name "Botnet-C&C.Server" "Malicious-Malicious.Server" "Phishing-Phishing.Server" "Proxy-Proxy.Server" "Spam-Spamming.Server" "Tor-Exit.Node" "Tor-Relay.Node" "VPN-Anonymous.VPN"
+        set schedule "always"
+        set logtraffic disable
+    next
+    edit 79
+        set name "BLOCK-ISDB-IN"
+        set uuid 1350a43a-2548-51ef-196d-2c2296c9023b
+        set srcintf "port1"
+        set dstintf "any"
+        set dstaddr "all"
+        set internet-service-src enable
+        set internet-service-src-name "Botnet-C&C.Server" "Censys-Scanner" "Malicious-Malicious.Server" "Phishing-Phishing.Server" "Proxy-Proxy.Server" "Shadowserver-Scanner" "Shodan-Scanner" "Spam-Spamming.Server" "Tor-Exit.Node" "Tor-Relay.Node" "VPN-Anonymous.VPN"
+        set schedule "always"
+        set service "ALL"
+        set logtraffic disable
+        set match-vip enable
+    next
+    edit 89
+        set name "IN_168.233.20.40"
+        set uuid aa08ebf0-3aef-51ef-e40c-a83c6bac443f
+        set srcintf "port1"
+        set dstintf "any"
+        set action accept
+        set srcaddr "168.233.20.40"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set ssl-ssh-profile "certificate-inspection"
+    next
+    edit 90
+        set name "OUT_168.233.20.40"
+        set uuid 492d3bb4-3af0-51ef-67d9-87a8bc5215c1
+        set srcintf "any"
+        set dstintf "port1"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "168.233.20.40"
+        set schedule "always"
+        set service "ALL"
+        set ssl-ssh-profile "certificate-inspection"
+        set nat enable
+        set ippool enable
+        set poolname "161.132.218.165"
+        set comments " (Copy of 168.233.20.40)"
+    next
+    edit 85
+        set name "RED DMZ"
+        set uuid b56df616-3432-51ef-93c3-32eb1d9885a7
+        set srcintf "port14"
+        set dstintf "port1"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+        set nat enable
+        set ippool enable
+        set poolname "161.132.218.165"
+    next
+    edit 86
+        set name "DENEGACION DMZ - OUT"
+        set uuid d77658ac-3432-51ef-b8ce-2288fd21df0b
+        set srcintf "port14"
+        set dstintf "LAN" "ssl.root" "to_Azure" "VLAN1" "vlan100" "VLAN2" "VLAN3" "VLAN4" "VLAN5" "VLAN6" "VLAN7" "VLAN8" "VLAN9" "VLAN101" "VPNDialUP_Users"
+        set srcaddr "all"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set logtraffic disable
+    next
+    edit 88
+        set name "DENEGACION DMZ - IN"
+        set uuid f0abd1ee-3432-51ef-06c4-e7ad5f6d6da0
+        set srcintf "to_Azure" "VLAN1" "vlan100" "VLAN2" "VLAN3" "VLAN4" "VLAN5" "VLAN6" "VLAN7" "VLAN8" "VLAN9" "VLAN101" "VPNDialUP_Users" "LAN"
+        set dstintf "port14"
+        set srcaddr "all"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set logtraffic disable
+    next
+    edit 73
+        set status disable
+        set name "Bloqueo Celulares"
+        set uuid 0e0579b2-1ab6-51ee-5b0f-f5220cd82bb8
+        set srcintf "vlan100" "VLAN2" "VLAN3" "VLAN4" "VLAN5" "VLAN6" "VLAN7" "VLAN8" "VLAN9" "VLAN101"
+        set dstintf "port1"
+        set srcaddr "02:f8:e3:14:9e:5c" "5a:5a:15:be:ec:a6" "76:34:e1:ac:57:51" "ba:fa:07:0e:4d:d6" "be:06:87:b7:79:56" "22:45:29:b7:cb:fd" "6e:56:99:8c:81:13" "76:40:e7:94:51:8a" "92:52:ac:87:8d:f6" "9e:3d:22:a0:69:bd" "a2:c4:b4:c0:2a:0c" "b2:8b:f9:0b:af:7d" "0e:78:91:67:ca:ef" "26:94:61:02:35:f8" "3a:52:7c:c9:bc:00" "88:bd:45:3e:2c:bb" "8a:e1:58:39:91:6b" "92:2f:4f:66:c9:a3" "94:17:00:64:d5:ec" "ca:47:42:10:c4:dd" "ce:c2:0b:1e:5b:f5" "f2:db:6d:34:7b:56" "f2:78:82:58:9d:81" "56:0b:d8:17:a1:81" "02:0e:fb:31:3a:77" "62:14:a4:b4:a6:50" "b6:4f:b1:da:ac:d8" "fe:11:65:07:22:d3" "fe:3c:cc:70:f6:b8" "22:d4:a3:3b:48:54" "86:31:4e:e6:5c:42" "32:2c:7c:e9:c7:79" "7a:6b:53:99:14:75"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set logtraffic disable
+    next
+    edit 84
+        set uuid ee14d6b6-2b5d-51ef-29b7-687b74a54ea2
+        set srcintf "vlan100"
+        set dstintf "port1"
+        set srcaddr "_upg_dev_64:00:6A:97:95:63@64:00:6a:97:95:63"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set logtraffic all
+        set comments " (Copy of 115) (Copy of ACCESO VLAN7) (Copy of 126) (Copy of 127)"
+    next
+    edit 75
+        set uuid eb7cae2e-2b5d-51ef-0e5f-eddb91904ef3
+        set srcintf "vlan100"
+        set dstintf "VLAN1" "vlan100" "VLAN2" "VLAN4" "VLAN5" "VLAN6" "VLAN7" "VLAN8" "VLAN9" "VLAN101" "VLAN3"
+        set srcaddr "_upg_dev_64:00:6A:97:95:63@64:00:6a:97:95:63"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set logtraffic all
+        set comments " (Copy of 115) (Copy of ACCESO VLAN7) (Copy of 126)"
+    next
+    edit 127
+        set uuid c7460964-2816-51ef-2aef-f7776db6f488
+        set srcintf "VLAN3"
+        set dstintf "port1"
+        set srcaddr "14:2d:27:dd:55:bb"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set logtraffic all
+        set comments " (Copy of 115) (Copy of ACCESO VLAN7) (Copy of 126)"
+    next 
+    edit 126
+        set uuid 92563940-2816-51ef-1b35-0f5244c9e742
+        set srcintf "VLAN3"
+        set dstintf "VLAN1" "vlan100" "VLAN2" "VLAN4" "VLAN5" "VLAN6" "VLAN7" "VLAN8" "VLAN9" "VLAN101"
+        set srcaddr "14:2d:27:dd:55:bb"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set logtraffic all
+        set comments " (Copy of 115) (Copy of ACCESO VLAN7)"
+    next
+    edit 99
+        set name "ACCESO VLAN7"
+        set uuid d9a5c72a-cd72-51ed-830e-4bd79f8501a6
+        set srcintf "VLAN7"
+        set dstintf "VLAN1" "vlan100" "VLAN2" "VLAN3" "VLAN4" "VLAN5" "VLAN6" "VLAN7" "VLAN8" "VLAN9" "VLAN101" "200"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+        set comments " (Copy of 115)"
+    next
+    edit 64
+        set uuid c4ba1834-1bf2-51e8-1a52-cf6e55c1154f
+        set srcintf "vlan100" "VLAN1" "VLAN2" "VLAN3" "VLAN4" "VLAN5" "VLAN6" "VLAN7" "VLAN8" "VLAN9" "LAN"
+        set dstintf "port1"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "www.hnsindia.com" "ca.com" "www.ca.com" "23.227.38.64" "www.outerknown.com" "50.207.96.10" "www.ted.com" "www.madewell.com" "www.titan-trading.com" "disneyworld.disney.go.com" "www.pinterest.com" "FQDN-WhiteList" "freecitysupershop.com" "www.cineplanet.com.pe" "www.chifasanjoylao.com" "allpaperu.com" "www.allpaperu.org" "www.youtube.com" "www.fedex.com" "104.106.91.45" "erp.wtsusa.us" "intranet.wtsusa.us" "youtube.com" "natific.thinkific.com" "*.akamaiedge.net" "*.edgekey.net" "*.hotmail.com" "*.wts.local" "whitelist" "koketa.com" "rextie.com" "www.rextie.com" "lacanasteria.com" "crl1.uanataca.com" "crl2.uanataca.com" "ocsp1.uanataca.com" "ocsp2.uanataca.com" "www.uanataca.com" "40.114.5.226" "45.232.107.81"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+        set nat enable
+        set ippool enable
+        set poolname "161.132.218.166"
+    next
+    edit 106
+        set uuid f2a2041e-cd72-51ed-932b-ae00847b394d
+        set srcintf "VLAN1" "vlan100" "VLAN2" "VLAN3" "VLAN4" "VLAN5" "VLAN6" "VLAN7" "VLAN8" "VLAN9" "VLAN101" "200"
+        set dstintf "VLAN7"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+        set comments " (Copy of 115) (Copy of ACCESO VLAN7) (Reverse of ACCESO VLAN7)"
+    next
+    edit 115
+        set uuid 392f879e-ad43-51ed-5f7b-084385e5249b
+        set srcintf "VLAN3" "LAN" "VLAN1" "vlan100" "VLAN2" "VLAN4" "VLAN5" "VLAN6" "VLAN7" "VLAN8" "VLAN9" "VLAN101"
+        set dstintf "port1"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "fedex.com" "eafddirect.msedge.net"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+        set nat enable
+    next
+    edit 91
+        set name "RDP"
+        set uuid 844d5970-3bd8-51ef-4b10-8adb0f79e19c
+        set srcintf "ssl.root"
+        set dstintf "VLAN3"
+        set action accept
+        set srcaddr "11.11.11.1-11.11.11.250"
+        set dstaddr "192.168.3.168"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+        set nat enable
+        set users "user_stn"
+    next
+    edit 63
+        set uuid 7474b788-29d5-51ef-b5db-2ec4e21c09e7
+        set srcintf "VPNDialUP_Users"
+        set dstintf "vlan100"
+        set action accept
+        set srcaddr "IPSEC-CLIENTE-RANGE"
+        set dstaddr "192.168.0.0/24"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+        set groups "Usuarios_WTS" "Perfil_TD" "Perfil_externo" "Perfil_STN"
+        set comments " (Copy of 128)"
+    next
+    edit 128
+        set uuid 4231ace2-29ce-51ef-a9de-fef6226fb365
+        set srcintf "ssl.root"
+        set dstintf "vlan100"
+        set action accept
+        set srcaddr "11.11.11.1-11.11.11.250"
+        set dstaddr "192.168.0.0/24"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+        set groups "Usuarios_WTS" "Perfil_TD" "Perfil_externo" "Perfil_STN"
+    next
+    edit 65
+        set uuid 78a7c93a-29d5-51ef-9061-61e7da8b6659
+        set srcintf "VPNDialUP_Users"
+        set dstintf "vlan100" "VLAN2" "VLAN3" "VLAN4" "VLAN5" "VLAN6" "VLAN7" "VLAN101"
+        set action accept
+        set srcaddr "IPSEC-CLIENTE-RANGE"
+        set dstaddr "192.168.4.0/24" "192.168.0.0/24" "192.168.2.0/24" "192.168.3.0/24" "192.168.6.0/24" "192.168.5.0/24" "192.168.1.0/24" "192.168.7.0/24"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+        set groups "Perfil_infra"
+        set comments " (Copy of 93) (Copy of 109) (Copy of 116) (Copy of 117) (Copy of PERFIL4) (Copy of Infraestructura)"
+    next
+    edit 119
+        set name "Infraestructura"
+        set uuid 71b7d214-fe4d-51ed-a2f8-458584fbfc88
+        set srcintf "ssl.root"
+        set dstintf "vlan100" "VLAN2" "VLAN3" "VLAN4" "VLAN5" "VLAN6" "VLAN7" "VLAN101"
+        set action accept
+        set srcaddr "11.11.11.1-11.11.11.250"
+        set dstaddr "192.168.4.0/24" "192.168.0.0/24" "192.168.2.0/24" "192.168.3.0/24" "192.168.6.0/24" "192.168.5.0/24" "192.168.1.0/24" "192.168.7.0/24"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+        set groups "Perfil_infra"
+        set comments " (Copy of 93) (Copy of 109) (Copy of 116) (Copy of 117) (Copy of PERFIL4)"
+    next
+    edit 66
+        set uuid 7c324a4e-29d5-51ef-ea3d-59bad532156c
+        set srcintf "VPNDialUP_Users"
+        set dstintf "to_Azure"
+        set action accept
+        set srcaddr "IPSEC-CLIENTE-RANGE"
+        set dstaddr "10.1.0.0/24"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+        set nat enable
+        set ippool enable
+        set poolname "192.168.0.250"
+        set groups "Perfil_TD" "Perfil_infra"
+        set comments " (Copy of Acceso_Azure)"
+    next
+    edit 95
+        set uuid 0c1b606c-8e37-51ef-c896-0326d37609d0
+        set srcintf "ssl.root"
+        set dstintf "vlan100"
+        set action accept
+        set srcaddr "11.11.11.1-11.11.11.250"
+        set dstaddr "192.168.0.22"
+        set schedule "always"
+        set service "MS-SQL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+        set nat enable
+        set ippool enable
+        set poolname "192.168.0.250"
+        set groups "Perfil_Contabilidad"
+        set comments " (Copy of Acceso_Azure) (Copy of 100) (Copy of 101) (Copy of 102) (Copy of 103) (Copy of 107)"
+    next
+    edit 107
+        set uuid fbfaf802-743a-51ef-d577-39331a9c625b
+        set srcintf "ssl.root"
+        set dstintf "to_Azure"
+        set action accept
+        set srcaddr "11.11.11.1-11.11.11.250"
+        set dstaddr "10.1.0.22"
+        set schedule "always"
+        set service "MS-SQL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+        set nat enable
+        set ippool enable
+        set poolname "192.168.0.250"
+        set groups "Perfil_Contabilidad"
+        set comments " (Copy of Acceso_Azure) (Copy of 100) (Copy of 101) (Copy of 102) (Copy of 103)"
+    next
+    edit 103
+        set uuid f8808502-743a-51ef-0f08-0a5c2adf980d
+        set srcintf "ssl.root"
+        set dstintf "to_Azure"
+        set action accept
+        set srcaddr "11.11.11.1-11.11.11.250"
+        set dstaddr "10.1.0.20" "10.1.0.13"
+        set schedule "always"
+        set service "MS-SQL" "TCP_7434" "UDP_443"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+        set nat enable
+        set ippool enable
+        set poolname "192.168.0.250"
+        set groups "Perfil_Desarrollo"
+        set comments " (Copy of Acceso_Azure) (Copy of 100) (Copy of 101) (Copy of 102)"
+    next
+    edit 102
+        set uuid f5de3060-743a-51ef-65a7-e98f045af64d
+        set srcintf "ssl.root"
+        set dstintf "to_Azure"
+        set action accept
+        set srcaddr "11.11.11.1-11.11.11.250"
+        set dstaddr "10.1.0.13" "10.1.0.18" "10.1.0.20"
+        set schedule "always"
+        set service "MS-SQL" "UDP_137"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+        set nat enable
+        set ippool enable
+        set poolname "192.168.0.250"
+        set groups "Perfil_Funcionales_QA"
+        set comments " (Copy of Acceso_Azure) (Copy of 100) (Copy of 101)"
+    next
+    edit 101
+        set uuid f312852a-743a-51ef-4ba0-de4e23494e42
+        set srcintf "ssl.root"
+        set dstintf "to_Azure"
+        set action accept
+        set srcaddr "11.11.11.1-11.11.11.250"
+        set dstaddr "10.1.0.13" "10.1.0.15" "10.1.0.18" "10.1.0.20"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+        set nat enable
+        set ippool enable
+        set poolname "192.168.0.250"
+        set groups "Perfil_Soporte_Aplicaciones"
+        set comments " (Copy of Acceso_Azure) (Copy of 100)"
+    next
+    edit 100
+        set uuid f0686934-743a-51ef-675e-dba7f3c68885
+        set srcintf "ssl.root"
+        set dstintf "to_Azure"
+        set action accept
+        set srcaddr "11.11.11.1-11.11.11.250"
+        set dstaddr "10.1.0.0/24"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+        set nat enable
+        set ippool enable
+        set poolname "192.168.0.250"
+        set groups "Perfil_Jefe_Desarrollo"
+        set comments " (Copy of Acceso_Azure)"
+    next
+    edit 92
+        set uuid 3be806f4-7467-51ef-f5f1-8841af7e6699
+        set srcintf "ssl.root"
+        set dstintf "to_Azure"
+        set action accept
+        set srcaddr "11.11.11.1-11.11.11.250"
+        set dstaddr "10.1.0.0/24"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+        set nat enable
+        set ippool enable
+        set poolname "192.168.0.250"
+        set groups "Perfil_TD"
+        set comments " (Copy of Acceso_Azure)"
+    next 
+    edit 120
+        set name "Acceso_Azure"
+        set uuid 3b31e932-fe93-51ed-2e1b-c7ac7b651965
+        set srcintf "ssl.root"
+        set dstintf "to_Azure"
+        set action accept
+        set srcaddr "11.11.11.1-11.11.11.250"
+        set dstaddr "10.1.0.0/24"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+        set nat enable
+        set ippool enable
+        set poolname "192.168.0.250"
+        set groups "Perfil_infra"
+    next
+    edit 74
+        set uuid 805fb3d6-29d5-51ef-d6de-885440cf0b5f
+        set srcintf "VPNDialUP_Users"
+        set dstintf "to_Azure"
+        set action accept
+        set srcaddr "IPSEC-CLIENTE-RANGE"
+        set dstaddr "10.1.0.22"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+        set nat enable
+        set ippool enable
+        set poolname "192.168.0.250"
+        set groups "Perfil_STN"
+        set comments " (Copy of 96)"
+    next
+    edit 96
+        set uuid c1016f06-75c5-51ea-e74b-31a50f494e76
+        set srcintf "ssl.root"
+        set dstintf "to_Azure"
+        set action accept
+        set srcaddr "11.11.11.1-11.11.11.250"
+        set dstaddr "10.1.0.22" "192.168.3.168"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+        set nat enable
+        set ippool enable
+        set poolname "192.168.0.250"
+        set groups "Perfil_STN"
+    next
+    edit 94
+        set name "Impresoras RICOH - Server Japon"
+        set uuid cc16a7d2-3097-51ed-89cb-10513e3cde7b
+        set srcintf "LAN" "VLAN1" "vlan100" "VLAN2" "VLAN3" "VLAN4" "VLAN6"
+        set dstintf "port1"
+        set action accept
+        set srcaddr "Impresora RICOH - 1er piso" "Impresora RICOH - 2do piso" "Impresora RICOH - 3er piso" "Impresora RICOH - 4to piso" "Impresora RICOH - BK"
+        set dstaddr "Server RICOH - I" "Server RICOH - II" "Server RICOH - III"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+        set nat enable
+    next
+    edit 112
+        set name "PET00112547 - Soundcloud"
+        set uuid 0fa26186-a3a2-51ec-2f1f-24ca94dc0dcb
+        set srcintf "VLAN3" "LAN" "VLAN1" "vlan100" "VLAN2" "VLAN4" "VLAN5" "VLAN6" "VLAN7" "VLAN8" "VLAN9" "VLAN101"
+        set dstintf "port1"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "soundcloud.com" "13.227.92.78" "api-v2.soundcloud.com" "s.pwt.soundcloud.com" "secure.sndcdn.com" "secure.soundcloud.com" "natific.thinkific.com" "radmorgolf.com" "www.bomler.com"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+        set nat enable
+    next
+    edit 111
+        set name "Wikipedia"
+        set uuid ff9227e8-b465-51ec-fe18-a97f3e1eaab6
+        set srcintf "LAN" "VLAN1" "vlan100" "VLAN2" "VLAN3" "VLAN4" "VLAN5" "VLAN6" "VLAN7" "VLAN8" "VLAN9" "VLAN101"
+        set dstintf "port1"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "es.wikipedia.org" "linguee.es" "pantone.com" "www.linguee.es" "www.pantone.com" "eberjey.com" "support.clo3d.com" "www.heirloomcreations.net" "www.verywellfit.com" "nordstromsupplier.com" "nordstromsupplier.com/" "www.nordstromsupplier.com"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+        set nat enable
+        set ippool enable
+        set poolname "161.132.218.166"
+    next
+    edit 71
+        set uuid 72693592-b229-51e8-d611-4ec89b84acae
+        set srcintf "vlan100" "VLAN1" "VLAN2" "VLAN3" "VLAN4" "VLAN5" "VLAN6" "VLAN7" "VLAN8" "VLAN9" "LAN"
+        set dstintf "port1"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "urbania.pe/" "Pinterest" "www.serviciosalciudadano.gob.pe" "172.217.0.0/16" "plm.jcrew.com" "erp.wtsusa.us" "intranet.wtsusa.us" "wts.com.pe" "LINK" "sunat.gob.pe" "siicex.gob.pe" "WHITE" "wtsusa.us"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set nat enable
+        set ippool enable
+        set poolname "161.132.218.165"
+    next
+    edit 110
+        set status disable
+        set name "limaexpresa"
+        set uuid c4d2cd08-e1c7-51ec-1aa0-21c89f2ddf35
+        set srcintf "LAN" "VLAN1" "vlan100" "VLAN2" "VLAN3" "VLAN4" "VLAN5" "VLAN6" "VLAN7" "VLAN8" "VLAN9" "VLAN101"
+        set dstintf "port1"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "comprobantes.limaexpresa.pe" "190.216.184.5"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+        set nat enable
+    next
+    edit 80
+        set name "LIBRE"
+        set uuid 57c69cd4-9789-51e9-437e-1c6d65c2e501
+        set srcintf "vlan100" "VLAN1" "VLAN2" "VLAN3" "VLAN4" "VLAN5" "VLAN6" "VLAN7" "VLAN8" "VLAN9" "LAN"
+        set dstintf "port1"
+        set action accept
+        set srcaddr "_upg_dev_D8:9E:F3:87:C1:E5@d8:9e:f3:87:c1:e5" "_upg_dev_DC:72:9B:F6:5C:C0@dc:72:9b:f6:5c:c0" "_upg_dev_70:3a:51:8e:d5:c4@70:3a:51:8e:d5:c4" "54:6C:EB:70:9A:1D" "C4:23:60:6E:26:48" "54:6c:eb:dc:5c:c6" "D8:9E:F3:87:A8:E4" "00:50:B6:94:62:BD" "58:1C:F8:7B:1B:32"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set profile-protocol-options "custom-default"
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set webfilter-profile "LIBRE"
+        set ips-sensor "default"
+        set application-list "LIBRE"
+        set logtraffic all
+        set nat enable
+        set comments "Clone of 78"
+    next
+    edit 114
+        set uuid aad83eaa-a63f-51ed-c6ed-76a4e5950633
+        set srcintf "vlan100" "VLAN1" "VLAN2" "VLAN3" "VLAN4" "VLAN5" "VLAN6" "VLAN7" "VLAN8" "VLAN9" "LAN"
+        set dstintf "port1"
+        set action accept
+        set srcaddr "00:BE:43:94:0F:51" "00:BE:43:94:12:5B" "00:BE:43:94:13:04" "54:6C:EB:70:9A:45" "C8:4B:D6:10:A8:4C" "F8:9E:94:FD:76:18" "F8:9E:94:FD:D1:26" "F8:9E:94:FD:D2:7A" "3C-21-9C-2A-27-E0" "98:43:FA:0A:39:8A"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set inspection-mode proxy
+        set profile-protocol-options "custom-default"
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set webfilter-profile "Gerencia General"
+        set ips-sensor "default"
+        set application-list "Gerencia General"
+        set logtraffic all
+        set nat enable
+    next
+    edit 62
+        set uuid cac7959e-168e-51e8-bd7d-b7dcfe033a85
+        set srcintf "vlan100" "VLAN1" "VLAN2" "VLAN3" "VLAN4" "VLAN5" "VLAN6" "VLAN7" "VLAN8" "VLAN9" "LAN"
+        set dstintf "port1"
+        set action accept
+        set srcaddr "_upg_devgrp_Gerencia_General" "_upg_dev_18:DB:F2:37:36:02@18:db:f2:37:36:02" "_upg_dev_b4:f7:a1:a6:33:14@b4:f7:a1:a6:33:14" "_upg_dev_F0:D5:BF:D5:CD:CA@f0:d5:bf:d5:cd:ca" "_upg_dev_d4:61:2e:e0:02:a5@d4:61:2e:e0:02:a5" "_upg_dev_18:66:DA:21:9D:A7@18:66:da:21:9d:a7" "_upg_dev_10:7D:1A:0B:EB:1F@10:7d:1a:0b:eb:1f" "_upg_dev_F8:DA:0C:68:98:03@f8:da:0c:68:98:03" "_upg_dev_B0:C0:90:B5:FB:F7@b0:c0:90:b5:fb:f7" "_upg_dev_ec:88:92:d8:47:ba@ec:88:92:d8:47:ba" "_upg_dev_70:3C:69:C9:72:A2@70:3c:69:c9:72:a2" "_upg_dev_58:D9:C3:32:38:A5@58:d9:c3:32:38:a5" "_upg_dev_A8:96:75:90:D4:6B@a8:96:75:90:d4:6b" "_upg_dev_3C:A0:67:78:33:8B@3c:a0:67:78:33:8b" "_upg_dev_3E:A0:67:78:33:8B@3e:a0:67:78:33:8b" "_upg_dev_80:CE:62:39:26:F9@80:ce:62:39:26:f9" "_upg_dev_D8:5D:E2:39:50:B5@d8:5d:e2:39:50:b5" "_upg_dev_64:00:6A:78:25:F9@64:00:6a:78:25:f9" "_upg_dev_48:45:20:a4:f1:b4@48:45:20:a4:f1:b4" "_upg_dev_4A:5F:99:26:19:71@4a:5f:99:26:19:71" "_upg_dev_ca:5f:99:26:19:71@ca:5f:99:26:19:71" "_upg_dev_A4:70:D6:7E:95:4F@a4:70:d6:7e:95:4f" "_upg_dev_14:18:77:C2:B8:5C@14:18:77:c2:b8:5c" "_upg_dev_B0:C0:90:B5:B4:39@b0:c0:90:b5:b4:39" "_upg_dev_2C:6F:C9:3A:34:E9@2c:6f:c9:3a:34:e9" "_upg_dev_98:b8:ba:8a:5f:d7@98:b8:ba:8a:5f:d7" "_upg_dev_a4:83:e7:d7:f4:16@a4:83:e7:d7:f4:16" "_upg_dev_f8:ff:c2:2e:fc:23@f8:ff:c2:2e:fc:23" "_upg_dev_10:7D:1A:41:03:78@10:7d:1a:41:03:78" "_upg_dev_D4:6A:6A:47:58:3D@d4:6a:6a:47:58:3d" "_upg_dev_10:7D:1A:0B:DD:C3@10:7d:1a:0b:dd:c3" "_upg_dev_F8:DA:0C:66:7C:8B@f8:da:0c:66:7c:8b" "_upg_dev_3C:22:FB:09:43:4F@3c:22:fb:09:43:4f" "_upg_dev_BC:FF:EB:12:A2:6B@bc:ff:eb:12:a2:6b" "_upg_dev_9c:30:5b:5c:e1:a7@9c:30:5b:5c:e1:a7" "_upg_dev_A4:4C:C8:A2:8F:C6@a4:4c:c8:a2:8f:c6" "_upg_dev_34:02:86:88:7F:BB@34:02:86:88:7f:bb" "_upg_dev_64:5D:86:B4:CD:3C@64:5d:86:b4:cd:3c" "_upg_dev_E4:B9:7A:30:2B:4D@e4:b9:7a:30:2b:4d" "_upg_dev_A8:DB:03:9E:68:7C@a8:db:03:9e:68:7c" "_upg_dev_28:3A:4D:21:98:37@28:3a:4d:21:98:37" "_upg_dev_3C:2C:30:C5:EE:35@3c:2c:30:c5:ee:35" "_upg_dev_00:50:B6:94:62:BD@00:50:b6:94:62:bd" "_upg_dev_04:ED:33:12:22:5D@04:ed:33:12:22:5d" "_upg_dev_DC:BF:E9:1F:52:59@dc:bf:e9:1f:52:59" "_upg_dev_64:00:6A:97:8C:74@64:00:6a:97:8c:74" "_upg_dev_00:B3:62:CF:CD:4F@00:b3:62:cf:cd:4f" "_upg_dev_58:EF:68:23:CA:6C@58:ef:68:23:ca:6c" "_upg_dev_50:9A:4C:14:8B:6E@50:9a:4c:14:8b:6e" "_upg_dev_F0:98:9D:51:71:B8@f0:98:9d:51:71:b8" "_upg_dev_40:2f:86:5f:1a:7c@40:2f:86:5f:1a:7c" "_upg_dev_00:2B:67:B7:97:C4@00:2b:67:b7:97:c4" "_upg_dev_CC:D9:AC:B5:7E:7B@cc:d9:ac:b5:7e:7b" "_upg_dev_00:2B:67:4F:C6:40@00:2b:67:4f:c6:40" "_upg_dev_C8:58:C0:D2:36:5B@c8:58:c0:d2:36:5b" "_upg_dev_ce:02:52:38:61:45@ce:02:52:38:61:45" "_upg_dev_DC:41:A9:21:67:4F@dc:41:a9:21:67:4f" "_upg_dev_FE:28:F1:DE:12:D6@fe:28:f1:de:12:d6" "_upg_dev_54:E1:AD:17:14:02@54:e1:ad:17:14:02" "_upg_dev_F8:59:71:0D:43:0A@f8:59:71:0d:43:0a" "_upg_dev_28:3a:4d:0c:78:1d@28:3a:4d:0c:78:1d" "_upg_dev_3c:2c:30:c5:dd:8d@3c:2c:30:c5:dd:8d" "_upg_dev_64:5D:86:B4:CD:0A@64:5d:86:b4:cd:0a" "_upg_dev_DC:08:0F:6F:CE:27@dc:08:0f:6f:ce:27" "_upg_dev_Bc:98:df:39:8f:3e@bc:98:df:39:8f:3e" "_upg_dev_28:C2:1F:FD:B0:5A@28:c2:1f:fd:b0:5a" "_upg_dev_d8:dc:40:c4:b0:c4@d8:dc:40:c4:b0:c4" "_upg_dev_dc:08:0f:6d:ce:27@dc:08:0f:6d:ce:27" "_upg_dev_6a:bb:7a:97:4e:96@6a:bb:7a:97:4e:96" "_upg_dev_80:45:DD:6F:29:EE@80:45:dd:6f:29:ee" "_upg_dev_94:5C:9A:47:74:E9@94:5c:9a:47:74:e9" "_upg_dev_38:22:E2:19:9F:CC@38:22:e2:19:9f:cc" "_upg_dev_54:8D:5A:F9:B4:D8@54:8d:5a:f9:b4:d8" "_upg_dev_64:00:6A:97:95:63@64:00:6a:97:95:63" "_upg_dev_74:42:8B:EC:E5:34@74:42:8b:ec:e5:34" "_upg_dev_7C:A1:AE:7C:81:27@7c:a1:ae:7c:81:27" "_upg_dev_7C:AB:60:0B:43:C6@7c:ab:60:0b:43:c6" "_upg_dev_AE:14:78:4E:85:AE@ae:14:78:4e:85:ae" "_upg_dev_B2:63:39:04:3A:38@b2:63:39:04:3a:38" "_upg_dev_C2:07:CC:C0:1F:A8@c2:07:cc:c0:1f:a8" "_upg_dev_F6:D9:19:2E:B9:BF@f6:d9:19:2e:b9:bf" "_upg_dev_66:77:93:7A:D4:88@66:77:93:7a:d4:88" "_upg_dev_46:84:B2:C2:F8:F5@46:84:b2:c2:f8:f5" "_upg_dev_74:78:27:4C:1F:A7@74:78:27:4c:1f:a7" "_upg_dev_C2:6C:60:FA:FE:AB@c2:6c:60:fa:fe:ab" "_upg_dev_E0:D4:64:B7:CF:0A@e0:d4:64:b7:cf:0a" "_upg_dev_8C:8C:AA:D6:46:CD@8c:8c:aa:d6:46:cd" "_upg_dev_B0:7D:64:BC:3D:8D@b0:7d:64:bc:3d:8d" "_upg_dev_10-7D-1A-0D-FB-C2@10:7d:1a:0d:fb:c2" "_upg_dev_F8-DA-0C-20-68-9B@f8:da:0c:20:68:9b" "_upg_dev_38:f3:ab:10:1f:e2@38:f3:ab:10:1f:e2" "_upg_dev_40:1c:83:a6:cb:65@40:1c:83:a6:cb:65" "_upg_dev_10:65:30:20:3D:F0@10:65:30:20:3d:f0" "_upg_dev_60:18:95:12:6B:9E@60:18:95:12:6b:9e" "_upg_dev_38:FC:98:CD:78:6E@38:fc:98:cd:78:6e" "_upg_dev_38:F3:AB:10:19:94@38:f3:ab:10:19:94" "_upg_dev_40:1C:83:D8:C2:DC@40:1c:83:d8:c2:dc" "_upg_dev_D4:81:D7:5E:E3:A5@d4:81:d7:5e:e3:a5" "_upg_dev_F4:06:69:BC:75:F6@f4:06:69:bc:75:f6" "_upg_dev_F6:06:69:BC:75:F5@f6:06:69:bc:75:f5" "_upg_dev_48:35:2B:D8:1D:DE@48:35:2b:d8:1d:de" "_upg_dev_48:35:2B:DD:6A:61@48:35:2b:dd:6a:61" "_upg_dev_8c:b8:7e:0b:7a:93@8c:b8:7e:0b:7a:93" "_upg_dev_a0:29:19:61:d2:2b@a0:29:19:61:d2:2b" "_upg_dev_D0:04:B0:48:C3:EB@D0:04:B0:48:C3:EB" "_upg_dev_D6:65:D6:F5:44:D7@D6:65:D6:F5:44:D7" "38:e3:9f:48:1c:4f" "ce:3d:79:7d:b7:a1" "_upg_dev_D0:04:B0:48:C3:EB@d0:04:b0:48:c3:eb" "_upg_dev_D6:65:D6:F5:44:D7@d6:65:d6:f5:44:d7" "18:DB:F2:3F:21:0A" "B0:BE:83:60:55:FB" "E4:02:9B:F5:8F:98" "F4:D4:88:85:AC:91" "_upg_dev_00:26:73:F9:B5:5E@00:26:73:F9:B5:5E" "_upg_dev_58:38:79:6D:02:42@58:38:79:6D:02:42" "_upg_dev_58:38:79:70:2E:7F@58:38:79:70:2E:7F" "_upg_dev_58:38:79:70:31:38@58:38:79:70:31:38" "_upg_dev_58:38:79:73:9A:17@58:38:79:73:9A:17" "7C:AB:60:0B:43:C6" "7C:AB:60:12:64:3D" "Luis Antonio" "_upg_dev_00:09:0F:FE:00:01@00:09:0F:FE:00:01" "_upg_dev_54:6C:EB:DC:9C:A9@54:6C:EB:DC:9C:A9" "00:BE:43:94:0F:51" "00:BE:43:94:12:5B" "00:BE:43:94:13:04" "54:6C:EB:70:9A:45" "C8:4B:D6:10:A8:4C" "F8:9E:94:FD:76:18" "F8:9E:94:FD:D1:26" "F8:9E:94:FD:D2:7A" "C8:94:02:72:6F:4F"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set inspection-mode proxy
+        set profile-protocol-options "custom-default"
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set webfilter-profile "Gerencia General"
+        set ips-sensor "default"
+        set application-list "Gerencia General"
+        set logtraffic all
+        set nat enable
+    next
+    edit 57
+        set status disable
+        set uuid e55cdcbe-d6ad-51e7-d1ac-dd3e4595c3d7
+        set srcintf "vlan100" "VLAN1" "VLAN2" "VLAN3" "VLAN4" "VLAN5" "VLAN6" "VLAN7" "VLAN8" "VLAN9" "LAN"
+        set dstintf "port1"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set inspection-mode proxy
+        set profile-protocol-options "custom-default"
+        set ssl-ssh-profile "certificate-inspection"
+        set webfilter-profile "Colaborador 1"
+        set application-list "Colaborador 1"
+        set nat enable
+    next
+    edit 60
+        set status disable
+        set uuid 3db509f2-e5c9-51e7-0b51-67c25accbe37
+        set srcintf "vlan100" "VLAN1" "VLAN2" "VLAN3" "VLAN4" "VLAN5" "VLAN6" "VLAN7" "VLAN8" "VLAN9" "LAN"
+        set dstintf "port1"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set inspection-mode proxy
+        set profile-protocol-options "custom-default"
+        set ssl-ssh-profile "certificate-inspection"
+        set webfilter-profile "Colaborador 2"
+        set application-list "Colaborador 2"
+        set nat enable
+    next
+    edit 113
+        set name "Libre"
+        set uuid 21eb0c2c-6061-51ed-f02c-f015ed5e4904
+        set srcintf "LAN" "VLAN3" "VLAN4" "VLAN6" "VLAN2" "VLAN7" "VLAN5"
+        set dstintf "port1"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set profile-protocol-options "custom-default"
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set webfilter-profile "default"
+        set ips-sensor "default"
+        set application-list "default"
+        set logtraffic all
+        set nat enable
+        set ippool enable
+        set poolname "161.132.218.166"
+    next
+    edit 104
+        set name "VLANs"
+        set uuid 122fdd18-b9e9-51ec-ff68-d17d69c80582
+        set srcintf "LAN" "VLAN3" "VLAN4" "VLAN6" "VLAN2" "vlan100"
+        set dstintf "port1"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set inspection-mode proxy
+        set profile-protocol-options "custom-default"
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set webfilter-profile "Colaborador 1"
+        set ips-sensor "default"
+        set application-list "Colaborador 1"
+        set nat enable
+        set comments "VLAN3"
+    next
+    edit 108
+        set name "ZOOM-TEAMS"
+        set uuid bac7168c-38cd-51ec-8e8a-3727b63a0ed5
+        set srcintf "LAN"
+        set dstintf "port1"
+        set action accept
+        set srcaddr "all"
+        set internet-service enable
+        set internet-service-name "Microsoft-Skype_Teams" "Zoom.us-Zoom.Meeting"
+        set schedule "always"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+        set nat enable
+    next
+    edit 105
+        set uuid 3aea6d98-cd56-51eb-4fa0-31161872888b
+        set srcintf "VLAN2" "VLAN3" "VLAN4" "VLAN6" "VLAN7"
+        set dstintf "port1"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "bcpzonasegurabeta.viabcp.com" "200.4.200.190"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set profile-protocol-options "custom-default"
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+        set nat enable
+        set ippool enable
+        set poolname "161.132.218.165"
+    next
+    edit 82
+        set uuid da49e2b8-2822-51ea-e8d5-47614882aeca
+        set srcintf "any"
+        set dstintf "to_Azure"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+    next
+    edit 83
+        set uuid ecca58be-2822-51ea-b356-ea2a39fbded0
+        set srcintf "to_Azure"
+        set dstintf "any"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+    next
+    edit 81
+        set uuid 7810bafc-99f4-51e9-2727-30c3440fd0ab
+        set srcintf "LAN"
+        set dstintf "port1"
+        set action accept
+        set srcaddr "192.168.2.93" "_upg_dev_14:18:77:C2:B8:5C@14:18:77:c2:b8:5c" "_upg_dev_B0:C0:90:B5:B4:39@b0:c0:90:b5:b4:39"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set application-list "Youtube+spotify"
+        set nat enable
+    next
+    edit 72
+        set status disable
+        set uuid 3f6cb65c-09fc-51e9-7a90-75354a46e93a
+        set srcintf "LAN" "vlan100"
+        set dstintf "port1"
+        set action accept
+        set srcaddr "192.168.0.32" "192.168.0.31"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set nat enable
+    next
+    edit 49
+        set uuid c117ca38-56c1-51e7-1244-2366f8dd4516
+        set srcintf "vlan100"
+        set dstintf "200"
+        set action accept
+        set srcaddr "192.168.0.0/24"
+        set dstaddr "192.168.200.0/24"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+    next
+    edit 43
+        set uuid 2e0d503c-3e89-51e7-1a6e-13cd9d81f0f3
+        set srcintf "VLAN2"
+        set dstintf "vlan100"
+        set action accept
+        set srcaddr "192.168.2.0/24"
+        set dstaddr "192.168.0.0/24"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+    next
+    edit 44
+        set uuid 70c3fe98-3e8a-51e7-498a-42b200d7afb0
+        set srcintf "vlan100"
+        set dstintf "VLAN2"
+        set action accept
+        set srcaddr "192.168.0.0/24"
+        set dstaddr "192.168.2.0/24"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+    next
+    edit 45
+        set uuid 43729fba-3e8c-51e7-b6c3-e1ff8de7b78c
+        set srcintf "LAN"
+        set dstintf "LAN"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+    next
+    edit 21
+        set uuid 19a862a6-f5f7-51e6-9e75-093f957d1a0d
+        set srcintf "VLAN7"
+        set dstintf "vlan100"
+        set action accept
+        set srcaddr "192.168.7.0/24"
+        set dstaddr "192.168.0.0/24"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+    next
+    edit 22
+        set uuid 2a4ffdf8-f5f7-51e6-9570-fe40b2004287
+        set srcintf "vlan100"
+        set dstintf "VLAN7"
+        set action accept
+        set srcaddr "192.168.0.0/24"
+        set dstaddr "192.168.7.0/24"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+    next
+    edit 69
+        set uuid 561ab86a-8516-51e8-e75c-a89c34af7af0
+        set srcintf "VLAN3"
+        set dstintf "vlan100"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "192.168.0.0/24"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+    next
+    edit 70
+        set uuid 7f4ae4bc-8516-51e8-8d38-77f7f51915bf
+        set srcintf "vlan100"
+        set dstintf "VLAN3"
+        set action accept
+        set srcaddr "192.168.0.0/24"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+    next
+    edit 25
+        set uuid a658d55e-f602-51e6-f75a-63e1929a421c
+        set srcintf "VLAN2" "VLAN1" "VLAN3" "VLAN4" "VLAN5" "VLAN6" "VLAN7" "VLAN8" "VLAN9" "VLAN101"
+        set dstintf "vlan100"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "192.168.0.0/24"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+    next
+    edit 26
+        set uuid b4d91ff8-f602-51e6-63ff-d7166c6b0bc2
+        set srcintf "vlan100"
+        set dstintf "VLAN101"
+        set action accept
+        set srcaddr "192.168.0.0/24"
+        set dstaddr "192.168.1.0/24"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+    next
+    edit 31
+        set uuid 5f4c778c-f77f-51e6-648f-0ffc7eac230b
+        set srcintf "vlan100"
+        set dstintf "vlan100"
+        set action accept
+        set srcaddr "192.168.0.0/24"
+        set dstaddr "192.168.10.0/24"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+    next
+    edit 32
+        set uuid 5f81066c-f78b-51e6-c62a-d804e7cfe418
+        set srcintf "vlan100"
+        set dstintf "VLAN1" "VLAN2" "VLAN3" "VLAN4" "VLAN5" "VLAN6" "VLAN7" "VLAN8" "VLAN9" "VLAN101"
+        set action accept
+        set srcaddr "192.168.0.0/24"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+    next
+    edit 124
+        set status disable
+        set uuid bc0bcaea-28cd-51ef-6014-f4c61541f734
+        set srcintf "VLAN4"
+        set dstintf "VLAN6"
+        set action accept
+        set srcaddr "192.168.4.0/24"
+        set dstaddr "192.168.6.0/24"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set comments " (Copy of 33)"
+    next
+    edit 33
+        set uuid 26a2889e-f84d-51e6-04bb-8bbe1096b107
+        set srcintf "VLAN4"
+        set dstintf "VLAN6"
+        set action accept
+        set srcaddr "192.168.4.0/24"
+        set dstaddr "192.168.6.0/24"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+    next
+    edit 34
+        set uuid 321ddf7a-f84d-51e6-d4a4-ccec895c46e3
+        set srcintf "VLAN6"
+        set dstintf "VLAN4"
+        set action accept
+        set srcaddr "192.168.6.0/24"
+        set dstaddr "192.168.4.0/24"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+    next
+    edit 35
+        set uuid e22413b6-f84e-51e6-633f-71f59feb0919
+        set srcintf "VLAN101"
+        set dstintf "VLAN4"
+        set action accept
+        set srcaddr "192.168.1.0/24"
+        set dstaddr "192.168.4.0/24"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+    next
+    edit 50
+        set uuid 107d1f64-6028-51e7-90cf-8c4ddfc8b653
+        set srcintf "port1"
+        set dstintf "vlan100"
+        set action accept
+        set srcaddr "PERU"
+        set dstaddr "SRV_161.132.218.165"
+        set schedule "always"
+        set service "SSH" "FTP" "FTP_PUT" "FTP_GET"
+        set utm-status enable
+        set profile-protocol-options "custom-default"
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "protect_http_server"
+        set logtraffic all
+    next
+    edit 42
+        set uuid 01907832-0abc-51e7-26f1-38ca0041c24b
+        set srcintf "port1"
+        set dstintf "vlan100"
+        set action accept
+        set srcaddr "PERU"
+        set dstaddr "NAT_161.132.218.164_192.168.0.107_5090_TCP" "NAT_161.132.218.164_192.168.0.107_5060_TCP" "NAT_161.132.218.164_192.168.0.107_5060_UDP" "NAT_161.132.218.164_192.168.0.107_5090_UDP"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set profile-protocol-options "custom-default"
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "protect_http_server"
+        set logtraffic all
+    next
+    edit 93
+        set uuid 681fa7a2-8d91-51ef-413e-790a74c0ef32
+        set srcintf "port1"
+        set dstintf "vlan100"
+        set action accept
+        set srcaddr "74.235.198.243"
+        set dstaddr "NAT_161.132.218.165_192.168.0.15_TCP_445" "NAT_161.132.218.165_192.168.0.15_UDP_445"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set profile-protocol-options "custom-default"
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "protect_http_server"
+        set logtraffic all
+        set comments " (Copy of 42)"
+    next
+    edit 36
+        set uuid f35783b6-f84e-51e6-5816-19106c4e36eb
+        set srcintf "VLAN4"
+        set dstintf "VLAN101"
+        set action accept
+        set srcaddr "192.168.4.0/24"
+        set dstaddr "192.168.1.0/24"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+    next
+    edit 30
+        set uuid 4c030c54-f77f-51e6-338c-5e8c6ac1c909
+        set srcintf "vlan100"
+        set dstintf "vlan100"
+        set action accept
+        set srcaddr "192.168.10.0/24"
+        set dstaddr "192.168.0.0/24"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+    next
+    edit 38
+        set uuid 6b3c38b0-07fc-51e7-025b-d9f05fe1261b
+        set srcintf "VLAN101"
+        set dstintf "vlan100"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+    next
+    edit 39
+        set uuid 7d9aa29e-07fc-51e7-5618-3647e6ab8c1a
+        set srcintf "vlan100"
+        set dstintf "VLAN101"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+    next
+    edit 40
+        set uuid e5e51cbe-0a57-51e7-7c4d-f9f9a0ceddca
+        set srcintf "VLAN4" "VLAN101" "VLAN2" "VLAN3" "VLAN5" "VLAN6" "VLAN7" "VLAN8" "VLAN9"
+        set dstintf "vlan100"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+    next 
+    edit 41
+        set uuid f7d57a40-0a57-51e7-ba13-7bb4b015b966
+        set srcintf "vlan100"
+        set dstintf "VLAN4" "VLAN2" "VLAN3" "VLAN5" "VLAN6" "VLAN7" "VLAN8" "VLAN9" "VLAN101"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+    next
+    edit 46
+        set uuid 6e40f49e-47dd-51e7-8e21-fcdac1dc6c09
+        set srcintf "VLAN6"
+        set dstintf "200"
+        set action accept
+        set srcaddr "192.168.6.0/24"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+    next
+    edit 61
+        set uuid 0bcfbde8-fc61-51e7-daf2-ca562ce14864
+        set srcintf "VLAN2"
+        set dstintf "VLAN3"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+    next
+    edit 67
+        set uuid 7a53eb78-84b4-51e8-acaf-5dc387a54a23
+        set srcintf "VLAN6"
+        set dstintf "VLAN3"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+    next
+    edit 68
+        set uuid 8aad9064-84b4-51e8-3714-0994afdf811f
+        set srcintf "VLAN3"
+        set dstintf "VLAN6"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set logtraffic all
+    next 
+    edit 76
+        set uuid bc3f956e-5641-51e9-5df1-b5a7b2b627f7
+        set srcintf "vlan100"
+        set dstintf "VLAN2" "VLAN3" "VLAN4" "VLAN5" "VLAN6" "VLAN7"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set comments "VLAN100 - VLAN2,3,4,5,6,7"
+    next
+    edit 77
+        set uuid e5dcdcd8-5641-51e9-6eef-9d178e4a36a5
+        set srcintf "VLAN2" "VLAN3" "VLAN4" "VLAN5" "VLAN6" "VLAN7"
+        set dstintf "vlan100"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set av-profile "default"
+        set ips-sensor "default"
+        set comments "VLAN2,3,4,5,6,7 - VLAN100"
+    next
+    edit 87
+        set status disable
+        set uuid 160dc2f2-63eb-51ea-819c-ac27265f9fbc
+        set srcintf "LAN"
+        set dstintf "LAN"
+        set srcaddr "all"
+        set dstaddr "all"
+        set schedule "always"
+        set service "RDP"
+        set logtraffic disable
+        set comments "Clone of 45"
+    next
+end
