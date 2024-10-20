@@ -1,36 +1,3 @@
 config user group
-    edit "SSO_Guest_Users"
-    next
-    edit "acceso-tacacs"
-        set member "tacacscliente"
-    next
-    edit "Perfil_externo"
-    next
-    edit "Perfil_TD"
-        set member "cristel.castaneda"
-    next
-    edit "Perfil_infra"
-        set member "lino.carhuamaca" "ronald.condori" "ricardo.serrudo"
-    next
-    edit "Usuarios_WTS"
-        set member "Yahaira.Fernandez" "alexandra.cerda" "alexis.anton" "alfredo.galecio" "almendra.pasquel" "anahi.monsalve" "angela.chavez" "anggi.teran" "antonella.ruiz" "carlos.torres" "carolina.cavero" "claudia.aspillaga" "claudia.leveau" "criss.canoli" "cristina.munoz" "daniela.garcia" "dayana.torres" "diana.alvarado" "diego.fernandez" "dora.sandoval" "doris.pena" "elena.yenque" "elisabet.vasquez" "elizabeth.lujan" "erika.almonte" "estefany.torres" "esther.gonzales" "eva.hidalgo" "ext_carlos.ramirez" "fabiola.barrera" "gabriela.recuenco" "gerardo.ballena" "gina.jimenez" "isabel.valega" "ivonne.tello" "karina.velarde" "katia.luque" "laaspillaga" "laboratorio" "liliana.ynfanzon" "liz.castillon" "lorena.gomez" "luz.ramirez" "lya.rojas" "maria.bellido" "maria.delacruz" "maribel.agurto" "maribel.costilla" "mauricio.perez" "melissa.oceda" "mercedes.carrion" "miguel.salas" "milagros.espinoza" "natali.isla" "nelly.manallay" "nelly.meza" "oriana.almeyda" "oscar.davila" "paloma.cobos" "paola.ganoza" "patricia.contreras" "patricia.palhua" "raul.perales" "renato.castello" "renzo.nunez" "rodrigo.lines" "rosa.ordinola" "rosario.ricce" "santiago.solis" "sheila.zelaya" "stephanie.dociak" "sue.hidalgo" "surama.trejo" "susana.tecse" "valki.pacherres" "vanessa.inca" "yennifer.calzada" "ysabel.jaramillo" "yuriko.valladares" "yvonne.choque"
-    next
-    edit "Perfil_STN"
-        set member "user_stn" "ext_contabilidad2" "user_dba" "ext_contabilidad1"
-    next
-    edit "Perfil_Contabilidad"
-        set member "claudia.morales" "mayra.pena" "asistente.contable" "carmen.ventura" "gabriela.delacruz" "neyler.calle" "vexy.cotaquispe"
-    next
-    edit "Perfil_Desarrollo"
-        set member "eloy.silva" "kevin.molina" "luis.penav" "miguel.vizarraga" "waldo.torres"
-    next
-    edit "Perfil_Funcionales_QA"
-        set member "andre.villar" "bryan.herrera" "tifany.cerna"
-    next 
-    edit "Perfil_Soporte_Aplicaciones"
-        set member "ysrael.nuñez"
-    next
-    edit "Perfil_Jefe_Desarrollo"
-        set member "cesar.bocanegra"
-    next
+
 end

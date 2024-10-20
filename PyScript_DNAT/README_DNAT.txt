@@ -12,6 +12,10 @@
 |                                  |
 +----------------------------------+
 
-Formato de ejecución:
+Input data: 
 
-python PyScript_DNAT.py -i <archivo_entrada>
+	show firewall vip
+
+Formato de ejecución:
+	
+	python PyScript_DNAT.py -i <archivo_entrada>
